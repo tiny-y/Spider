@@ -13,6 +13,8 @@ class XPathRules_zhidao(XpathRules):
     def root_xpath(self):
         return '/html/body/div[2]/div/div/div/div/table/tbody'
 
+
+
     def title_xpath(self):
         return '/td[4]/a'
 

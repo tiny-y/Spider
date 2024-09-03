@@ -15,7 +15,7 @@ class SpiderForKey(WebScraper):
     def redirected_url(self):
         try:
             self.driver.get(self.web_site)  # 打开指定URL
-            time.sleep(5)  # 等待页面加载
+            time.sleep(10)  # 等待页面加载
             search_box = self.driver.find_element(By.XPATH, self.search_box_xpath)  # 定位搜索框
             search_box.clear()  # 清空搜索框
             search_box.send_keys(self.search_term)  # 输入搜索关键词
@@ -90,12 +90,15 @@ class SpiderForKey(WebScraper):
         spider_data = []
         while True:
             current_div_count = self.content_extractor.count_divs_num(tree)
+            print(current_div_count)
             filtered_elements, self.item_id = self.filter(tree, total, current_div_count)
+            for i in filtered_elements:
+                print(i)
             if not filtered_elements:
                 break
             else:
                 # 尝试点击“加载更多”
-                if self.click_load_more():
+                if self.click_load_more(current_div_count):
                     total = len(self.item_id)
                 else:
                     # 滚动加载检查
@@ -118,13 +121,13 @@ from spider.Search_crawling.freebuf import XpathRules_freebuf
 from spider.Search_crawling.anquanke import XpathRules_anquanke
 from spider.Search_crawling.blog import XpathRules_blog
 from spider.Search_crawling.kanxue import XpathRules_kanxue
-from spider.Search_crawling.t001s_e import XPathRules_t001s
 from spider.Search_crawling.secwiki import XpathRules_seck
+from spider.Search_crawling.McAfee_e import XpathRules_mcafee
 from spider.Search_crawling.medium import XpathRules_medium
 from spider.Search_crawling.zhidaochuanyu import XpathRules_zhidao
 from spider.Search_crawling.shihou import XpathRules_sihou
 
 if __name__ == '__main__':
 
-    a = SpiderForKey(XpathRules_sihou("car"))
+    a = SpiderForKey(XpathRules_medium("car"))
     a.main()

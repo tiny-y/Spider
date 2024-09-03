@@ -1,35 +1,42 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2024/08/20 20:06
 # @Author  : gzy
-from xpath import XpathRules
+from spider.xpath import XpathRules
 
 
-class XPathRules_mcafee(XpathRules):
+class XpathRules_mcafee(XpathRules):
     """特定网站的 XPath 规则"""
 
     def __init__(self, search_term):
         self.search_term = search_term
+        self.first_call = True
 
     def root_xpath(self):
-        return '/html/body/div[2]/article/div/div/div[2]/div[2]'
+        return '//*[@id="short-header"]/div[2]/article/div/div/div[1]/div[2]'
 
     def title_xpath(self):
-        return '/div[2]/h5/a/font/font'
+        return '/div[2]/h5/a'
 
     def url_xpath(self):
         return '/div[2]/h5/a/@href'
 
     def date_xpath(self):
-        return '/div[3]/p/small[1]/font/font'
+        return '/div[3]/p/small[1]'
 
     def category_xpath(self):
-        return '/html/body/div[2]/div/p/span/span[3]/font/font'
+        return '/div[2]/span[1]/font/font'
 
     def load_more_xpath(self):
-        return '/html/body/div[2]/article/div/div/div[2]/div[3]/div/div/ul/li[5]/a'
+        if self.first_call:
+            # 如果是第一次调用，返回第一个 XPath
+            self.first_call = False  # 设置为 False，表示已经调用过了
+            return '//*[@id="short-header"]/div[2]/article/div/div/div[1]/div[3]/div/div/ul/li[5]/a'
+        else:
+            # 之后的调用返回另一个 XPath
+            return '//*[@id="short-header"]/div[2]/article/div/div/div[1]/div[3]/div/div/ul/li[7]/a'
 
     def count_divs_class(self):
-        return 'card-body'
+        return 'card'
 
     def web_site(self):
         return 'https://www.mcafee.com/blogs/other-blogs/mcafee-labs/'
@@ -43,7 +50,7 @@ class XPathRules_mcafee(XpathRules):
         title_xpath = f"{self.root_xpath()}/div[{idx}]{self.title_xpath()}"
         url_xpath = f"{self.root_xpath()}/div[{idx}]{self.url_xpath()}"
         date_xpath = f"{self.root_xpath()}/div[{idx}]{self.date_xpath()}"
-        category_xpath = self.category_xpath()
+        category_xpath = f"{self.root_xpath()}/div[{idx}]{self.category_xpath()}"
         return title_xpath, url_xpath, date_xpath, category_xpath
 
     def web_name(self):
@@ -55,4 +62,4 @@ class XPathRules_mcafee(XpathRules):
         return xpath_expr
 
     def search_box_xpath(self):
-        return "//*[@id='navbar3']/form[1]/div[2]/input"
+        return '//*[@id="navbar3"]/form[1]/div[2]/input'

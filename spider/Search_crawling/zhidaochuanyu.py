@@ -12,9 +12,10 @@ class XpathRules_zhidao(XpathRules):
 
     def __init__(self, search_term):
         self.search_term = search_term
+        self.first_call = True
 
     def root_xpath(self):
-        return '/html/body/div[2]/div/div/div/div/table/tbody'
+        return '/html/body/div[2]/div/div/div[2]/table/tbody'
 
     def title_xpath(self):
         return '/td[4]/a'
@@ -29,7 +30,13 @@ class XpathRules_zhidao(XpathRules):
         return '/html/body/div[2]/div/div/form/div/h2'
 
     def load_more_xpath(self):
-        return '/html/body/div[2]/div/div/nav/ul/li[6]/a/span/i'
+        if self.first_call:
+            # 如果是第一次调用，返回第一个 XPath
+            self.first_call = False  # 设置为 False，表示已经调用过了
+            return '/html/body/div[2]/div/div/nav/ul/li[6]/a/span/i'
+        else:
+            # 之后的调用返回另一个 XPath
+            return '/html/body/div[2]/div/div/nav/ul/li[7]/a/span/i'
 
     def count_divs_class(self):
         return 'vul-title-wrapper'

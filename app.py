@@ -1,7 +1,5 @@
 from flask import Flask, jsonify
 from models.models import db, Spider_info, Spider_today
-from spider.spider_keyword import SpiderForKey
-from spider.model import WebScraper
 from spider.spider_keyword import *
 from spider.model import *
 
@@ -14,14 +12,17 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+@app.route("/")
+def index():
+    return "<h1>这是首页</h1>"
 
 # 定义一个视图来调用爬虫并存储数据
-@app.route('/<search>')
+@app.route('/searched/<search>')
 def scrape_data(search):
     # 初始化 XPath 规则类（这里是一个示例，你可以根据需要使用不同的规则类）
     for specific_xpath_rules in [XpathRules_freebuf(search), XpathRules_kanxue(search), XpathRules_anquanke(search),
-                                 XpathRules_blog(search), XpathRules_seck(search),XpathRules_medium(search),
-                                 XpathRules_sihou(search), XpathRules_zhidao(search)]:
+                                 XpathRules_blog(search), XpathRules_seck(search), XpathRules_medium(search),
+                                 XpathRules_sihou(search), XpathRules_zhidao(search), XpathRules_mcafee(search)]:
 
         spider = SpiderForKey(specific_xpath_rules)
 
@@ -51,8 +52,8 @@ def scrape_data(search):
 @app.route('/today')
 def scrape_today():
     # 初始化 XPath 规则类（这里是一个示例，你可以根据需要使用不同的规则类）
-    for specific_xpath_rules in [XPathRules_medium(), XPathRules_labs(), XPathRules_nigerald(),
-                                 XPathRules_zhidao(), XPathRules_sihou(), XPathRules_fanka(), XPathRules_52pojie(),
+    for specific_xpath_rules in [XPathRules_medium(), XPathRules_labs(), XPathRules_nigerald(), XPathRules_zhidao(),
+                                 XPathRules_sihou(), XPathRules_fanka(), XPathRules_52pojie(),
                                  XPathRules_blog(), XPathRules_anquanke(), XpathRules_t001s(), XPathRules_seck(),
                                  XPathRules_freebuf(), XPathRules_kanxue()]:
         scraper = WebScraper(specific_xpath_rules)

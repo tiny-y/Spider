@@ -138,9 +138,9 @@ class WebScraper:
         self.item_id = set()
         self.content_extractor = ContentExtractor(obj)
 
-    def click_load_more(self):
+    def click_load_more(self, cur):
         try:
-            load_more_xpath = self.obj.load_more_xpath()
+            load_more_xpath = self.obj.load_more_xpath(cur)
             load_more_button = self.driver.find_element(By.XPATH, load_more_xpath)
             # 使用 JavaScript 进行点击
             self.driver.execute_script("arguments[0].click();", load_more_button)
@@ -210,20 +210,31 @@ class WebScraper:
             days_ago = int(days_ago_match.group(1))
             return datetime.now() - timedelta(days=days_ago)
 
+        # 处理 "Aug 30, 2024" 的情况
+        try:
+            return datetime.strptime(date_text, "%b %d, %Y")
+        except ValueError:
+            pass
+        # 处理 "Aug 12" 的情况，假设使用当前年份
+        try:
+            return datetime.strptime(date_text + f", {datetime.now().year}", "%b %d, %Y")
+        except ValueError:
+            pass
+
         # 定义日期格式列表
         date_formats = [
-            "%Y-%m-%d",
-            "%Y/%m/%d",
-            "%Y年%m月%d日",
-            "%Y-%m-%d %H:%M:%S",
-            "%Y-%m-%d %H:%M",
+            "%Y-%m-%d",          # 2024-8-13
+            "%Y/%m/%d",          # 2024/8/13
+            "%Y年%m月%d日",      # 2024年8月13日
+            "%Y-%m-%d %H:%M:%S", # 2024-08-13 08:40:00
+            "%Y-%m-%d %H:%M",    # 2024-8-1 14:41
         ]
 
         # 使用正则表达式匹配常见的日期格式
         regex_patterns = [
-            r"(\d{4})-(\d{1,2})-(\d{1,2})",  # 2024-8-13
-            r"(\d{4})/(\d{1,2})/(\d{1,2})",  # 2024/8/13
-            r"(\d{4})年(\d{1,2})月(\d{1,2})日",  # 2024年8月13日
+            r"(\d{4})-(\d{1,2})-(\d{1,2})",                      # 2024-8-13
+            r"(\d{4})/(\d{1,2})/(\d{1,2})",                      # 2024/8/13
+            r"(\d{4})年(\d{1,2})月(\d{1,2})日",                   # 2024年8月13日
             r"(\d{4})-(\d{1,2})-(\d{1,2})\s(\d{1,2}):(\d{1,2}):(\d{1,2})",  # 2024-08-13 08:40:00
             r"(\d{4})-(\d{1,2})-(\d{1,2})\s(\d{1,2}):(\d{1,2})"  # 2024-8-1 14:41
         ]

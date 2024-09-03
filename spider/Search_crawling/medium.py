@@ -21,16 +21,17 @@ class XpathRules_medium(XpathRules):
         return '/article/div/div/div/div/div[1]/div/div[2]/div[1]/div[1]/a/@href'
 
     def date_xpath(self):
-        return '/article/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/span/div/div[1]/span/font/font'
+        return '/article/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]/div/span/div/div[1]/span'
 
     def category_xpath(self):
         return '/article/div/div/div/div/div[1]/div/div[1]/div/div[4]/div/div/a/p/font/font'
 
-    def load_more_xpath(self):
-        return ''
+    def load_more_xpath(self, cur):
+        return f'//*[@id="root"]/div/div[3]/div[2]/div/main/div/div/div[2]/div/div[{cur}]/div/div/button'
+               #//*[@id="root"]/div/div[3]/div[2]/div/main/div/div/div[2]/div/div[40]/div/div/button
 
     def count_divs_class(self):
-        return 'uw l'
+        return 'bh cm'
 
     def web_site(self):
         return 'https://medium.com/mitre-attack/search'
