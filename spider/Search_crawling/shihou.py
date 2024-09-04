@@ -25,7 +25,7 @@ class XpathRules_sihou(XpathRules):
     def category_xpath(self):
         return '/a/div/span'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '//*[@id="container"]/div/a[3]'
 
     def count_divs_class(self):

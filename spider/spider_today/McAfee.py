@@ -22,7 +22,7 @@ class XPathRules_mcafee(XpathRules):
     def category_xpath(self):
         return '/html/body/div[2]/div/p/span/span[3]/font/font'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div[2]/article/div/div/div[2]/div[3]/div/div/ul/li[5]/a'
 
     def count_divs_class(self):

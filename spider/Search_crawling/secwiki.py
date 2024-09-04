@@ -28,14 +28,14 @@ class XpathRules_seck(XpathRules):
     def category_xpath(self):
         return '/td[3]/a'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '//*[@id="yw1"]/li[13]/a'
 
     def count_divs_class(self):
         return 'button-column'
 
     def web_site(self):
-        return 'https://www.sec-wiki.com/index.php'
+        return 'https://www.sec-wiki.com/news/search'
 
     def extract_element(self, idx):
         """

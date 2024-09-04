@@ -30,9 +30,9 @@ class XpathRules(ABC):
     def category_xpath(self):
         pass
 
-    # @abstractmethod
-    # def load_more_xpath(self):
-    #     pass
+    @abstractmethod
+    def load_more_xpath(self, cur=None):
+        pass
 
     def count_divs(self):
         pass

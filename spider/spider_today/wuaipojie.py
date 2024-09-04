@@ -23,7 +23,7 @@ class XPathRules_52pojie(XpathRules):
     def category_xpath(self):
         return '/html/body/div[6]/div[2]/div/div/div[3]/div[2]/table/tbody[1]/tr/td[2]/a'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div[6]/div[2]/div/div/div[4]/div/a[8]'
 
     def count_divs_class(self):

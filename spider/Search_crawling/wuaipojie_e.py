@@ -25,7 +25,7 @@ class XpathRules_52pojie(XpathRules):
     def category_xpath(self):
         return ''
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '//*[@id="b_results"]/li[12]/nav/ul/li[5]/a'
 
     def count_divs_class(self):

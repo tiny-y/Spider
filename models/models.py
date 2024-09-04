@@ -17,6 +17,18 @@ class Spider_info(db.Model):
     category = db.Column(db.String(100), nullable=True)
     now_date = db.Column(db.String(100), nullable=True)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'url': self.url,
+            'date': self.date,
+            'web_name': self.web_name,
+            'category': self.category,
+            'now_date': self.now_date,
+            # 添加所有需要返回的字段
+        }
+
 
 class Spider_today(db.Model):
     __tablename__ = 'spider_today'
@@ -27,3 +39,15 @@ class Spider_today(db.Model):
     web_name = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=True)
     now_date = db.Column(db.String(100), nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'url': self.url,
+            'date': self.date,
+            'web_name': self.web_name,
+            'category': self.category,
+            'now_date': self.now_date,
+            # 添加所有需要返回的字段
+        }

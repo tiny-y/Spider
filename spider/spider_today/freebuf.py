@@ -22,7 +22,7 @@ class XPathRules_freebuf(XpathRules):
     def category_xpath(self):
         return '/html/body/div[1]/div/div/section/main/div/div[1]/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[2]/div[1]/div[2]/a/p/span'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div[1]/div/div/section/main/div/div[1]/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[2]/p/span'
 
     def web_site(self):

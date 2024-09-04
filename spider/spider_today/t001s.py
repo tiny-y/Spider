@@ -4,7 +4,7 @@
 from spider.xpath import XpathRules
 
 
-class XpathRules_t001s(XpathRules):
+class XPathRules_t001s(XpathRules):
     """特定网站的 XPath 规则"""
     def __init__(self):
         super().__init__()
@@ -24,7 +24,7 @@ class XpathRules_t001s(XpathRules):
     def category_xpath(self):
         return '/html/body/div/section/div/div/div[1]/div[1]/h1'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self,cur=None):
         return '/html/body/div/section/div/div/div[1]/div[3]/a/span'
 
     def count_divs_class(self):

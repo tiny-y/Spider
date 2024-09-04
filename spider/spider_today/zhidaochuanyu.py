@@ -27,7 +27,7 @@ class XPathRules_zhidao(XpathRules):
     def category_xpath(self):
         return '/html/body/div[2]/div/div/form/div/h2'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self,cur=None):
         return '/html/body/div[2]/div/div/nav/ul/li[14]/a'
 
     def count_divs_class(self):

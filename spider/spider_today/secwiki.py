@@ -25,7 +25,7 @@ class XPathRules_seck(XpathRules):
     def category_xpath(self):
         return '/html/body/div[2]/div/div/div/div[1]/div[2]/div/ul/li[1]'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return ' '
 
     def count_divs_class(self):

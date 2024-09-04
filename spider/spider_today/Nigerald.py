@@ -26,7 +26,7 @@ class XPathRules_nigerald(XpathRules):
     def category_xpath(self):
         return '/div[4]/a[1]'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div[2]/div/div/ul/li/a'
 
     def count_divs_class(self):

@@ -28,7 +28,6 @@ class XpathRules_medium(XpathRules):
 
     def load_more_xpath(self, cur):
         return f'//*[@id="root"]/div/div[3]/div[2]/div/main/div/div/div[2]/div/div[{cur}]/div/div/button'
-               #//*[@id="root"]/div/div[3]/div[2]/div/main/div/div/div[2]/div/div[40]/div/div/button
 
     def count_divs_class(self):
         return 'bh cm'

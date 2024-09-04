@@ -28,7 +28,7 @@ class XPathRules_kanxue(XpathRules):
     def category_xpath(self):
         return '/td/div[1]/a[3]'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/main/div/nav/ul/li[12]/a'
 
     def count_divs_class(self):

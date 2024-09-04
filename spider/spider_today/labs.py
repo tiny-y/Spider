@@ -29,7 +29,7 @@ class XPathRules_labs(XpathRules):
     def category_xpath(self):
         return '/html/body/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[6]/div/div/div/div/div/div[1]/div[2]/label/select/option[1]/font/font'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[6]/div/div/div/div/div/div[3]/a[2]'
 
     def count_divs_class(self):

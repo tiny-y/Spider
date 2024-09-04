@@ -26,7 +26,7 @@ class XpathRules_anquanke(XpathRules):
     def category_xpath(self):
         return '/html/body/main/div[1]/div/div/div[2]/div/div/ul/li[1]/a'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/main/div[2]/div/div/div[1]/div/div[4]/div'
 
     def count_divs_class(self):

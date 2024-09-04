@@ -25,7 +25,7 @@ class XPathRules_anquanke(XpathRules):
     def web_name_xpath(self):
         return '/html/body/main/div/div/div[1]/div/div[2]/div[1]/div/div[2]/div/div[4]/div[1]/a/span'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/main/div/div/div[1]/div/div[3]/button'
 
     def count_divs_class(self):

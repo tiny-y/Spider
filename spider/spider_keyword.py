@@ -92,8 +92,6 @@ class SpiderForKey(WebScraper):
             current_div_count = self.content_extractor.count_divs_num(tree)
             print(current_div_count)
             filtered_elements, self.item_id = self.filter(tree, total, current_div_count)
-            for i in filtered_elements:
-                print(i)
             if not filtered_elements:
                 break
             else:
@@ -109,7 +107,7 @@ class SpiderForKey(WebScraper):
                         break  # 如果不相等，跳出循环
                 spider_data.extend(filtered_elements)
                 # 等待页面加载并更新解析的HTML
-                time.sleep(5)  # 等待加载
+                time.sleep(3)  # 等待加载
                 updated_page_source = self.driver.page_source  # 获取更新后的页面源代码
                 tree = self.content_extractor.parse_content(updated_page_source)  # 解析新的 HTML
             # 退出驱动程序
@@ -129,5 +127,5 @@ from spider.Search_crawling.shihou import XpathRules_sihou
 
 if __name__ == '__main__':
 
-    a = SpiderForKey(XpathRules_medium("car"))
+    a = SpiderForKey(XpathRules_zhidao("漏洞"))
     a.main()

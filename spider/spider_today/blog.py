@@ -29,7 +29,7 @@ class XPathRules_blog(XpathRules):
     def web_name_xpath(self):
         return '/html/body/div/header/div[1]/div/div[1]//@title'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return ' '
 
     def count_divs_class(self):

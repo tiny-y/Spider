@@ -26,7 +26,7 @@ class XpathRules_mcafee(XpathRules):
     def category_xpath(self):
         return '/div[2]/span[1]/font/font'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         if self.first_call:
             # 如果是第一次调用，返回第一个 XPath
             self.first_call = False  # 设置为 False，表示已经调用过了

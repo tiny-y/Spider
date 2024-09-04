@@ -22,7 +22,7 @@ class XPathRules_fanka(XpathRules):
     def category_xpath(self):
         return '/html/body/div/div[4]/div/div[1]/ul/li[1]/div/div/a'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div/div[4]/div/div[1]/div[2]/a[7]'
 
     def count_divs_class(self):

@@ -22,7 +22,7 @@ class XPathRules_sihou(XpathRules):
     def category_xpath(self):
         return '/html/body/div[4]/div[2]/section/article[1]/div/div[1]/text()[2]'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return '/html/body/div[4]/div[2]/section/article[1]/div/div[3]/a'
 
     def count_divs_class(self):

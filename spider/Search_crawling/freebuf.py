@@ -25,7 +25,7 @@ class XpathRules_freebuf(XpathRules):
     def category_xpath(self):
         return '/html/body/div[1]/div/div/section/main/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div[2]/div[1]'
 
-    def load_more_xpath(self):
+    def load_more_xpath(self, cur=None):
         return None
 
     def web_site(self):

@@ -23,20 +23,10 @@ from spider.spider_today.labs import XPathRules_labs
 from spider.spider_today.medium import XPathRules_medium
 from spider.spider_today.secwiki import XPathRules_seck
 from spider.spider_today.shihou import XPathRules_sihou
-from spider.spider_today.t001s import XpathRules_t001s
+from spider.spider_today.t001s import XPathRules_t001s
 from spider.spider_today.wuaipojie import XPathRules_52pojie
 from spider.spider_today.zhidaochuanyu import XPathRules_zhidao
-# from spider.spider_today.secwiki import XPathRules_seck
-# from spider.spider_today.blog import XPathRules_blog
-# from spider.spider_today.wuaipojie import XPathRules_52pojie
-# from spider.spider_today.fankawang import XPathRules_fanka
-# from spider.spider_today.shihou import XPathRules_sihou
-# from spider.spider_today.zhidaochuanyu import XPathRules_zhidao
-# from spider.spider_today.kanxue import XPathRules_kanxue
-# from spider.spider_today.Nigerald import XPathRules_nigerald
-# from spider.spider_today.labs import XPathRules_labs
-# from spider.spider_today.medium import XPathRules_medium
-# from spider.spider_today.McAfee import XPathRules_mcafee
+
 from spider.xpath import XpathRules
 
 from selenium import webdriver
@@ -138,13 +128,12 @@ class WebScraper:
         self.item_id = set()
         self.content_extractor = ContentExtractor(obj)
 
-    def click_load_more(self, cur):
+    def click_load_more(self, cur=None):
         try:
             load_more_xpath = self.obj.load_more_xpath(cur)
             load_more_button = self.driver.find_element(By.XPATH, load_more_xpath)
             # 使用 JavaScript 进行点击
             self.driver.execute_script("arguments[0].click();", load_more_button)
-            time.sleep(3)
             return True
         except Exception as e:
             return False
@@ -306,10 +295,6 @@ class WebScraper:
         return filtered_elements, self.item_id
 
     def scrape(self):
-        """
-        最终运行函数
-        :return:
-        """
         spider_data = []
         pre = 0
         while True:
@@ -317,20 +302,19 @@ class WebScraper:
             current_div_count = self.content_extractor.count_divs_num(tree)
             print(f"Current div count: {current_div_count}")
             filtered_elements, item_id = self.filter_by_date(tree)
-            if not filtered_elements:
-                break
+            for i in filtered_elements:
+                print(i)
+            # 尝试点击“加载更多”
+            if len(filtered_elements) == current_div_count:
+                self.click_load_more()
             else:
-                # 尝试点击“加载更多”
-                if self.click_load_more():
-                    total = len(self.item_id)
+                # 滚动加载检查
+                if len(filtered_elements) == current_div_count - pre:
+                    self.go_on_scroll()  # 如果上次和本次的元素数相等，进行滚动
+                    pre = current_div_count
                 else:
-                    # 滚动加载检查
-                    if len(filtered_elements) == current_div_count - pre:
-                        self.go_on_scroll()  # 如果上次和本次的元素数相等，进行滚动
-                        pre = current_div_count
-                    else:
-                        break  # 如果不相等，跳出循环
-                spider_data.extend(filtered_elements)
+                    break  # 如果不相等，跳出循环
+        spider_data.extend(filtered_elements)
         self.driver_manager.quit_driver()
         return spider_data
 
@@ -341,10 +325,8 @@ class WebScraper:
 if __name__ == '__main__':
     for specific_xpath_rules in [XPathRules_mcafee(), XPathRules_medium(), XPathRules_labs(), XPathRules_nigerald(),
                                  XPathRules_zhidao(), XPathRules_sihou(), XPathRules_fanka(), XPathRules_52pojie(),
-                                 XPathRules_blog(), XPathRules_anquanke(), XpathRules_t001s(), XPathRules_seck(),
+                                 XPathRules_blog(), XPathRules_anquanke(), XPathRules_t001s(), XPathRules_seck(),
                                  XPathRules_freebuf(), XPathRules_kanxue()]:
         scraper = WebScraper(specific_xpath_rules)
         scraper.scrape()
-# specific_xpath_rules = XPathRules_fanka()
-# scraper = WebScraper(db_config, specific_xpath_rules)
-# scraper.scrape()
+
